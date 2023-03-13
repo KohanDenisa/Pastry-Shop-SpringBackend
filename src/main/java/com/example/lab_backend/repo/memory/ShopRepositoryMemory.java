@@ -1,28 +1,27 @@
-package com.example.lab_backend.repo;
+package com.example.lab_backend.repo.memory;
 
-import com.example.lab_backend.entity.Product;
+import com.example.lab_backend.entity.Shop;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 @Repository
-public class ProductRepository {
+public class ShopRepositoryMemory {
     private int currentId = 1;
-    private final Map<Integer, Product> repo = new HashMap<>();
+    private final Map<Integer, Shop> repo = new HashMap<>();
 
-    public List<Product> viewAll()
+    public List<Shop> viewAll()
     {
         return repo.values().stream().toList();
     }
 
-    public Product viewOne(int id)
+    public Shop viewOne(int id)
     {
         return repo.get(id);
     }
 
-    public Product create (Product p)
+    public Shop create (Shop p)
     {
         p.setId(currentId);
         currentId++;
@@ -30,7 +29,7 @@ public class ProductRepository {
         return p;
     }
 
-    public Product update (Product p)
+    public Shop update (Shop p)
     {
         repo.replace(p.getId(), p);
         return p;
@@ -40,4 +39,10 @@ public class ProductRepository {
     {
         repo.remove(id);
     }
+
+    public Iterable<Shop> filter (int v)
+    {
+       return  repo.values().stream().filter(s->s.getNrOfEmployees() > v).toList();
+    }
+
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Product {
+public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
@@ -19,19 +19,19 @@ public class Product {
     @Column
     String name;
     @Column
-    Float price;
+    Integer nrOfEmployees;
     @Column
-    Float weight;
+    String location;
     @Column
     String type;
     @Column
-    Date manufacturingDate;
+    Integer years;
 
-    public Product(String name, float price, float weight, String type, Date manufacturingDate) {
+    public Shop(String name, int nrOfEmployees, String location, String type, int years) {
         this.name = name;
-        this.price = price;
-        this.weight = weight;
+        this.nrOfEmployees = nrOfEmployees;
+        this.location = location;
         this.type = type;
-        this.manufacturingDate = manufacturingDate;
+        this.years = years;
     }
 }

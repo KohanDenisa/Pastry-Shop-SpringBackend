@@ -1,7 +1,7 @@
 package com.example.lab_backend.service;
 
-import com.example.lab_backend.entity.Product;
-import com.example.lab_backend.repo.jpa.ProductRepository;
+import com.example.lab_backend.entity.Shop;
+import com.example.lab_backend.repo.jpa.ShopRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,20 +10,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
-    private final ProductRepository repository;
+public class ShopService {
+    private final ShopRepository repository;
 
-    public ProductService(ProductRepository repository){
+    public ShopService(ShopRepository repository) {
         this.repository = repository;
     }
 
     @Transactional
-    public Product create(Product p){
+    public Shop create(Shop p){
         return repository.save(p);
     }
 
     @Transactional
-    public Product update(Product p){
+    public Shop update(Shop p){
         return repository.save(p);
     }
     @Transactional
@@ -31,11 +31,18 @@ public class ProductService {
         repository.deleteById(id);
     }
     @Transactional
-    public List<Product> viewAll(){
+    public List<Shop> viewAll(){
         return repository.findAll();
     }
     @Transactional
-    public Product viewOne(int id){
+    public Shop viewOne(int id){
         return repository.findById(id).orElse(null);
     }
+
+    @Transactional
+    public List<Shop> filter(int v){
+        return repository.findAll().stream().filter(shop -> shop.getNrOfEmployees() > v).toList();
+    }
+
+
 }
