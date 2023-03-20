@@ -1,5 +1,7 @@
 package com.example.lab_backend.controller;
 
+import com.example.lab_backend.dto.product.ProductDetailsDto;
+import com.example.lab_backend.dto.product.ProductDto;
 import com.example.lab_backend.entity.Product;
 import com.example.lab_backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -17,22 +19,22 @@ public class ProductController {
     }
 
     @GetMapping()
-    public List<Product> viewAll(){
+    public List<ProductDto> viewAll(){
         return service.viewAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Product viewOne(@PathVariable("id") int id){
+    public ProductDetailsDto viewOne(@PathVariable("id") int id){
         return service.viewOne(id);
     }
 
     @PostMapping()
-    public Product create(@RequestBody Product p){
+    public ProductDetailsDto create(@RequestBody Product p){
         return service.create(p);
     }
 
     @PutMapping()
-    public Product update(@RequestBody Product p){
+    public ProductDetailsDto update(@RequestBody Product p){
         return service.update(p);
     }
 

@@ -1,5 +1,8 @@
 package com.example.lab_backend.controller;
 
+import com.example.lab_backend.dto.shop.ShopAvgPriceDto;
+import com.example.lab_backend.dto.shop.ShopDetailsDto;
+import com.example.lab_backend.dto.shop.ShopDto;
 import com.example.lab_backend.entity.Shop;
 import com.example.lab_backend.service.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -17,27 +20,32 @@ public class ShopController {
     }
 
     @GetMapping()
-    public List<Shop> viewAll(){
+    public List<ShopDto> viewAll(){
         return service.viewAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Shop viewOne(@PathVariable("id") int id){
+    public ShopDetailsDto viewOne(@PathVariable("id") int id){
         return service.viewOne(id);
     }
 
     @GetMapping(value = "/nrOfEmployees={number}")
-    public List<Shop> filterNumberOfClients(@PathVariable("number") int number){
+    public List<ShopDto> filterNumberOfClients(@PathVariable("number") int number){
         return service.filter(number);
     }
 
+    @GetMapping(value = "/sortByAvgPrice")
+    public List<ShopAvgPriceDto> sortAvgPrice(){
+        return service.sortAvgPrice();
+    }
+
     @PostMapping()
-    public Shop create(@RequestBody Shop p){
+    public ShopDetailsDto create(@RequestBody Shop p){
         return service.create(p);
     }
 
     @PutMapping()
-    public Shop update(@RequestBody Shop p){
+    public ShopDetailsDto update(@RequestBody Shop p){
         return service.update(p);
     }
 

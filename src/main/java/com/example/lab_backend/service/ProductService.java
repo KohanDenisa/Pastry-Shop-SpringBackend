@@ -1,5 +1,7 @@
 package com.example.lab_backend.service;
 
+import com.example.lab_backend.dto.product.ProductDetailsDto;
+import com.example.lab_backend.dto.product.ProductDto;
 import com.example.lab_backend.entity.Product;
 import com.example.lab_backend.repo.jpa.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -18,24 +20,24 @@ public class ProductService {
     }
 
     @Transactional
-    public Product create(Product p){
-        return repository.save(p);
+    public ProductDetailsDto create(Product p){
+        return ProductDetailsDto.productDetailsDtoFromProduct(repository.save(p));
     }
 
     @Transactional
-    public Product update(Product p){
-        return repository.save(p);
+    public ProductDetailsDto update(Product p){
+        return ProductDetailsDto.productDetailsDtoFromProduct(repository.save(p));
     }
     @Transactional
     public void delete(int id){
         repository.deleteById(id);
     }
     @Transactional
-    public List<Product> viewAll(){
-        return repository.findAll();
+    public List<ProductDto> viewAll(){
+        return repository.findAll().stream().map(ProductDto::productDtoFromProduct).toList();
     }
     @Transactional
-    public Product viewOne(int id){
-        return repository.findById(id).orElse(null);
+    public ProductDetailsDto viewOne(int id){
+        return repository.findById(id).map(ProductDetailsDto::productDetailsDtoFromProduct).orElse(null);
     }
 }

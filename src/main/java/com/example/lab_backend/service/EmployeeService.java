@@ -1,5 +1,7 @@
 package com.example.lab_backend.service;
 
+import com.example.lab_backend.dto.employee.EmployeeDetailsDto;
+import com.example.lab_backend.dto.employee.EmployeeDto;
 import com.example.lab_backend.entity.Employee;
 import com.example.lab_backend.entity.Shop;
 import com.example.lab_backend.repo.jpa.EmployeeRepository;
@@ -19,23 +21,23 @@ public class EmployeeService {
     private final ShopRepository shopRepository;
 
     @Transactional
-    public Employee create(Employee employee){
-        return repository.save(employee);
+    public EmployeeDetailsDto create(Employee employee){
+        return EmployeeDetailsDto.employeeDetailsDtoFromEmployee(repository.save(employee));
     }
 
     @Transactional
-    public Employee update(Employee employee){
-        return repository.save(employee);
+    public EmployeeDetailsDto update(Employee employee){
+        return EmployeeDetailsDto.employeeDetailsDtoFromEmployee(repository.save(employee));
     }
 
     @Transactional
-    public List<Employee> viewAll(){
-        return repository.findAll();
+    public List<EmployeeDto> viewAll(){
+        return repository.findAll().stream().map(EmployeeDto::employeeDtoFromEmployee).toList();
     }
 
     @Transactional
-    public Employee viewOne(int id){
-        return repository.findById(id).orElse(null);
+    public EmployeeDetailsDto viewOne(int id){
+        return repository.findById(id).map(EmployeeDetailsDto::employeeDetailsDtoFromEmployee).orElse(null);
     }
 
     @Transactional
@@ -44,12 +46,13 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Employee addEmployeeToShop(int id_employee, int id_shop){
+    public EmployeeDetailsDto addEmployeeToShop(int id_employee, int id_shop){
         Optional<Employee> employee = repository.findById(id_employee);
         Optional<Shop> shop = shopRepository.findById(id_shop);
-        if(employee.isPresent() && shop.isPresent()){
+        if(employee.isPresent() && shop.isPresent()) {
             employee.get().setShop(shop.get());
-            return employee.get();
+            shop.get().addEmployeeToShop(employee.get());
+            return EmployeeDetailsDto.employeeDetailsDtoFromEmployee(employee.get());
         }
         else {
             return null;

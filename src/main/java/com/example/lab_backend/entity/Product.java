@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,11 +28,18 @@ public class Product {
     @Column
     Date manufacturingDate;
 
+    @ManyToMany
+    List<Shop> shops;
+
     public Product(String name, float price, float weight, String type, Date manufacturingDate) {
         this.name = name;
         this.price = price;
         this.weight = weight;
         this.type = type;
         this.manufacturingDate = manufacturingDate;
+    }
+
+    public void addProductToShop(Shop shop){
+        shops.add(shop);
     }
 }

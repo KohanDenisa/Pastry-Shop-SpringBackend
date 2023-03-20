@@ -1,5 +1,7 @@
 package com.example.lab_backend.controller;
 
+import com.example.lab_backend.dto.employee.EmployeeDetailsDto;
+import com.example.lab_backend.dto.employee.EmployeeDto;
 import com.example.lab_backend.entity.Employee;
 import com.example.lab_backend.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -14,27 +16,27 @@ public class EmployeeController {
     private final EmployeeService service;
 
     @GetMapping
-    public List<Employee> viewAll(){
+    public List<EmployeeDto> viewAll(){
         return service.viewAll();
     }
 
     @GetMapping(value = "/{id}")
-    public Employee viewOne(@PathVariable("id") Integer id){
+    public EmployeeDetailsDto viewOne(@PathVariable("id") Integer id){
         return service.viewOne(id);
     }
 
     @PostMapping()
-    public Employee create(@RequestBody Employee employee){
+    public EmployeeDetailsDto create(@RequestBody Employee employee){
         return service.create(employee);
     }
 
     @PutMapping()
-    public Employee update(@RequestBody Employee employee){
+    public EmployeeDetailsDto update(@RequestBody Employee employee){
         return service.update(employee);
     }
 
     @PutMapping(value = "/{id}/shopId={shopId}")
-    public Employee addToShop(@PathVariable("id") int id, @PathVariable("shopId") int idShop){
+    public EmployeeDetailsDto addToShop(@PathVariable("id") int id, @PathVariable("shopId") int idShop){
         return service.addEmployeeToShop(id, idShop);
     }
 

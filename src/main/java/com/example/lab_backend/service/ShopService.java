@@ -1,5 +1,8 @@
 package com.example.lab_backend.service;
 
+import com.example.lab_backend.dto.shop.ShopAvgPriceDto;
+import com.example.lab_backend.dto.shop.ShopDetailsDto;
+import com.example.lab_backend.dto.shop.ShopDto;
 import com.example.lab_backend.entity.Shop;
 import com.example.lab_backend.repo.jpa.ShopRepository;
 import jakarta.transaction.Transactional;
@@ -18,31 +21,34 @@ public class ShopService {
     }
 
     @Transactional
-    public Shop create(Shop p){
-        return repository.save(p);
+    public ShopDetailsDto create(Shop p){
+        return ShopDetailsDto.shopDtoFromShop(repository.save(p));
     }
 
     @Transactional
-    public Shop update(Shop p){
-        return repository.save(p);
+    public ShopDetailsDto update(Shop p){
+        return ShopDetailsDto.shopDtoFromShop(repository.save(p));
     }
     @Transactional
     public void delete(int id){
         repository.deleteById(id);
     }
     @Transactional
-    public List<Shop> viewAll(){
-        return repository.findAll();
+    public List<ShopDto> viewAll(){
+        return repository.findAll().stream().map(ShopDto::shopDtoFromShop).toList();
     }
     @Transactional
-    public Shop viewOne(int id){
-        return repository.findById(id).orElse(null);
+    public ShopDetailsDto viewOne(int id){
+        return repository.findById(id).map(ShopDetailsDto::shopDtoFromShop).orElse(null);
     }
 
     @Transactional
-    public List<Shop> filter(int v){
-        return repository.findAll().stream().filter(shop -> shop.getNrOfEmployees() > v).toList();
+    public List<ShopDto> filter(int v){
+        return repository.findAll().stream().filter(shop -> shop.getNrOfEmployees() > v).map(ShopDto::shopDtoFromShop).toList();
     }
 
-
+    @Transactional
+    public List<ShopAvgPriceDto> sortAvgPrice(){
+        return repository.findAll().stream().sorted().map(ShopAvgPriceDto::shopAvgPriceDtoFromShop).toList();
+    }
 }
