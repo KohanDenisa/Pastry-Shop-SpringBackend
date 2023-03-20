@@ -15,9 +15,9 @@ public class ShopDetailsDto {
     private String location;
     private String type;
     private Integer years;
-    private List<EmployeeDto> employeeDtos;
+    private List<EmployeeDto> employees;
 
-    private List<ProductDto> productDtos;
+    private List<ProductDto> products;
 
     public static ShopDetailsDto shopDtoFromShop(Shop shop){
         ShopDetailsDto dto = new ShopDetailsDto();
@@ -27,8 +27,8 @@ public class ShopDetailsDto {
         dto.setLocation(shop.getLocation());
         dto.setType(shop.getType());
         dto.setYears(shop.getYears());
-        dto.setEmployeeDtos(shop.getEmployees().stream().map(EmployeeDto::employeeDtoFromEmployee).toList());
-        dto.setProductDtos(shop.getProducts().stream().map(ProductDto::productDtoFromProduct).toList());
+        dto.setEmployees(shop.getEmployees().stream().map(EmployeeDto::employeeDtoFromEmployee).toList());
+        dto.setProducts(shop.getProducts().stream().map(ProductDto::productDtoFromProduct).toList());
         return dto;
     }
 }

@@ -38,6 +38,11 @@ public class ProductController {
         return service.update(p);
     }
 
+    @PutMapping(value = "{id}/shopId={shopId}")
+    public ProductDetailsDto addProductToShop(@PathVariable("id")int id, @PathVariable("shopId")int shopId){
+        return service.addProductToShop(id, shopId);
+    }
+
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id){
         service.delete(id);

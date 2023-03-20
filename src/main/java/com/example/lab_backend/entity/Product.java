@@ -29,6 +29,7 @@ public class Product {
     Date manufacturingDate;
 
     @ManyToMany
+    @ToString.Exclude
     List<Shop> shops;
 
     public Product(String name, float price, float weight, String type, Date manufacturingDate) {

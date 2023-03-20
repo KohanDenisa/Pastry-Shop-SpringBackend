@@ -29,9 +29,11 @@ public class Shop implements Comparable<Shop> {
     Integer years;
 
     @OneToMany
+    @ToString.Exclude
     List<Employee> employees;
 
     @ManyToMany
+    @ToString.Exclude
     List<Product> products;
 
     public Shop(String name, int nrOfEmployees, String location, String type, int years) {

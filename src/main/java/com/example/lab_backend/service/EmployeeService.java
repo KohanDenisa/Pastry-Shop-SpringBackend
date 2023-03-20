@@ -52,6 +52,8 @@ public class EmployeeService {
         if(employee.isPresent() && shop.isPresent()) {
             employee.get().setShop(shop.get());
             shop.get().addEmployeeToShop(employee.get());
+            repository.save(employee.get());
+            shopRepository.save(shop.get());
             return EmployeeDetailsDto.employeeDetailsDtoFromEmployee(employee.get());
         }
         else {

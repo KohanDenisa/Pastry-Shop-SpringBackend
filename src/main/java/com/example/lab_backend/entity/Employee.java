@@ -27,6 +27,7 @@ public class Employee {
     float salary;
 
     @ManyToOne
+    @ToString.Exclude
     Shop shop;
 
     public Employee(String name, int age, String gender, float salary, Shop shop) {
